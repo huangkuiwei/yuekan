@@ -1,32 +1,84 @@
 <template>
   <view class="index-top">
-    <view class="index-header"></view>
+    <view class="page-title">
+      <text>首页</text>
+    </view>
+
+    <view class="banner"> </view>
+
+    <view class="index-header">
+      <image
+          class="head"
+          :src="user.avatar_url || `https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png`"
+          mode="aspectFit"
+      />
+
+      <view class="userinfo" v-if="user.uid">
+        <view class="name1">{{ user.nickname || '微信用户' }}</view>
+        <!-- TODO 到期时间 -->
+        <view class="name2">{{ user.vip_type ? `会员到期还剩159天` : '普通用户' }}</view>
+      </view>
+
+      <view class="userinfo" v-else @click="toRouter('/pages/login/index')">
+        <view class="name1">未登录</view>
+        <view class="name2">游客</view>
+      </view>
+
+      <view class="vip" @click="myVip">
+        <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/vip-icon.png" />
+        <text>{{ user.vip_type ? '我的会员' : '加入会员' }}</text>
+      </view>
+    </view>
 
     <view class="box">
-      <view class="grid">
-        <view class="grid-title">
-          <text></text>
-          <text>轻松扫描，高效管理每一份文件</text>
-        </view>
+      <view class="tool-box">
+        <view class="left">
+          <view class="top">
+            <view class="add-icon">+</view>
 
-        <view class="scan-icon">
-          <image
-              class="icon1"
-              mode="widthFix"
-              src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/icon01.png"
-          />
-
-          <view class="tip">
-            <view>点击按钮即可立即扫描</view>
-            <view>证件、文件、图片、pdf、文字提取等</view>
+            <view class="tip1">
+              <text>文件扫描</text>
+              <text>扫描生成电子文件</text>
+            </view>
           </view>
 
-          <image
-              @click="toRouter('/pages/camera/index', 'tab=4')"
-              class="btn"
-              mode="widthFix"
-              src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/btn01.png"
-          />
+          <view class="bottom">
+            <view class="recode-tip">
+              <!-- TODO 切图 -->
+              <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
+              <!-- TODO 数量 -->
+              <text class="num">文件记录12</text>
+              <text class="more">更多></text>
+            </view>
+
+            <view class="recode-pic">
+              <text>WORD</text>
+              <text>PPT</text>
+              <text>PDF</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="right">
+          <view class="right-card">
+            <!-- TODO 切图 -->
+            <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
+
+            <view class="desc">
+              <text>证件扫描</text>
+              <text>扫描证件生成电子文件</text>
+            </view>
+          </view>
+
+          <view class="right-card">
+            <!-- TODO 切图 -->
+            <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
+
+            <view class="desc">
+              <text>图片转pdf</text>
+              <text>扫描证件生成电子文件</text>
+            </view>
+          </view>
         </view>
       </view>
 
@@ -456,11 +508,23 @@ watchEffect(() => {
   }
 })
 
+const myVip = () => {
+  if (user.uid) {
+    if (user.value.vip_type) {
+      toRouter('/pages/my/index')
+    } else {
+      toRouter('/pages/member/index')
+    }
+  } else {
+    toRouter('/pages/login/index')
+  }
+}
+
 const search = () => {
   if (!user.value.uid) {
     uni.showModal({
       title: '提示',
-      content: '您当前未登录或登录已失效，为了您有更好的体验，力网转印需要您进行登录',
+      content: '您当前未登录或登录已失效，为了您有更好的体验，悦看需要您进行登录',
       showCancel: true,
       success: (res) => {
         if (res.confirm) {
@@ -797,7 +861,7 @@ const goPreview = (item) => {
 
 <style lang="scss">
 page {
-  background: #FAFAFA url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/bg04.png") left top/100% auto no-repeat;
+  background: linear-gradient(-90deg, #44CDD3 0%, #8FD8ED 0%, #73E0E2 0%, #5BA7F4 51%, #5191FF 100%) left top/100% 782rpx no-repeat;
   padding-bottom: 200rpx;
 }
 </style>
@@ -847,64 +911,197 @@ page {
   margin: 0 0 0 0.8rem;
 }
 
+.page-title {
+}
+
+.banner {
+  padding: calc(var(--page-title-height)) 0 52rpx;
+}
+
 .index-header {
-  height: 435rpx;
-  background: url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/bg05.png") left 66rpx top 260rpx/310rpx auto no-repeat;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 53rpx;
+
+  .head {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    margin-right: 20rpx;
+  }
+
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12rpx;
+    flex-grow: 1;
+
+    .name1 {
+      font-weight: bold;
+      font-size: 30rpx;
+      color: #FFFFFF;
+    }
+
+    .name2 {
+      font-size: 24rpx;
+      color: #FFFFFF;
+    }
+  }
+
+  .vip {
+    position: relative;
+
+    image {
+      width: 178rpx;
+    }
+
+    text {
+      font-size: 24rpx;
+      color: #FFFFFF;
+      position: absolute;
+      top: 20rpx;
+      right: 16rpx;
+    }
+  }
 }
 
 .box {
   padding: 0 30rpx;
 
-  .grid {
-    background: linear-gradient(3deg, #FFFFFF, #F9F7FF);
-    box-shadow: 1rpx 5rpx 18rpx 0rpx rgba(141,115,244,0.17), 0rpx 1rpx 16rpx 0rpx #FFFFFF;
-    border-radius: 40rpx;
-    padding: 28rpx;
-    margin-bottom: 50rpx;
+  .tool-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    .grid-title {
-      display: flex;
-      align-items: center;
-      gap: 6rpx;
-      margin-bottom: 39rpx;
+    .left {
+      width: 335rpx;
+      background: linear-gradient(0deg, #75A9FE 0%, #4A8EFD 100%);
+      border-radius: 30rpx;
+      box-sizing: border-box;
+      padding: 40rpx 0 20rpx;
 
-      text {
-        &:nth-child(1) {
-          width: 16rpx;
-          height: 16rpx;
-          background: #856BFF;
-          border-radius: 50%;
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 36rpx;
+
+        .add-icon {
+          width: 60rpx;
+          height: 58rpx;
+          background: #80AFFF;
+          border-radius: 20rpx;
+          font-size: 36rpx;
+          color: #FFFFFF;
+          margin-right: 18rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        &:nth-child(2) {
-          font-weight: 600;
-          font-size: 22rpx;
-          color: #000000;
+        .tip1 {
+          display: flex;
+          flex-direction: column;
+
+          text {
+            &:nth-child(1) {
+              font-weight: 500;
+              font-size: 28rpx;
+              color: #FFFFFF;
+            }
+
+            &:nth-child(2) {
+              font-size: 22rpx;
+              color: #D5E5FF;
+            }
+          }
+        }
+      }
+
+      .bottom {
+        padding: 32rpx 22rpx 0;
+        width: 100%;
+        background: #70A6FF;
+        border-radius: 30rpx;
+        box-sizing: border-box;
+
+        .recode-tip {
+          display: flex;
+          align-items: center;
+          font-size: 24rpx;
+          color: #FFFFFF;
+          margin-bottom: 30rpx;
+
+          image {
+            width: 22rpx;
+            margin-right: 10rpx;
+          }
+
+          .num {
+            flex-grow: 1;
+            color: #D5E5FF;
+          }
+        }
+
+        .recode-pic {
+          display: flex;
+          align-items: center;
+          gap: 10rpx;
+
+          text {
+            width: 80rpx;
+            height: 53rpx;
+            background: #9EC2FF;
+            border-radius: 15rpx;
+            font-size: 22rpx;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
     }
 
-    .scan-icon {
+    .right {
+      align-self: stretch;
+      width: 335rpx;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 36rpx;
+      justify-content: space-between;
 
-      .icon1 {
-        width: 134rpx;
-      }
+      .right-card {
+        background: #FFFFFF;
+        border-radius: 30rpx;
+        padding: 36rpx 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-      .tip {
-        font-weight: 400;
-        font-size: 18rpx;
-        color: #000000;
-        line-height: 22rpx;
-        text-align: center;
-      }
+        image {
+          width: 55rpx;
+          margin-right: 24rpx;
+        }
 
-      .btn {
-        width: 537rpx;
+        .desc {
+          display: flex;
+          flex-direction: column;
+          gap: 10rpx;
+
+          text {
+            &:nth-child(1) {
+              font-weight: 500;
+              font-size: 28rpx;
+              color: #333333;
+            }
+
+            &:nth-child(2) {
+              font-size: 22rpx;
+              color: #999999;
+            }
+          }
+        }
       }
     }
   }
