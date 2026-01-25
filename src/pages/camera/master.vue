@@ -100,7 +100,7 @@ const emits = defineEmits(['change'])
   // background: #1F1914;
   display: flex;
   font-size: 13px;
-  color: #856BFF;
+  color: #448BFF;
   align-items: center;
   justify-content: center;
 
@@ -116,7 +116,7 @@ const emits = defineEmits(['change'])
 }
 .master-li.active{
   color: #ffffff;
-  background: #856BFF;
+  background: #448BFF;
 }
 .master-part{
   flex: 1;
@@ -149,7 +149,7 @@ const emits = defineEmits(['change'])
 .page-box{
   background: #3D3A35;
   display: flex;
-  border: 1px solid #856BFF;
+  border: 1px solid #448BFF;
   align-items: center;
   border-radius: 20px;
 }

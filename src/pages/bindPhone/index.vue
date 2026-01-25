@@ -196,7 +196,7 @@ page {
     }
 
     .btn {
-      background: #856BFF;
+      background: #448BFF;
       color: #ffffff;
       border-radius: 40rpx;
       height: 80rpx;
@@ -223,7 +223,7 @@ page {
     input {
       width: 100%;
       height: 90rpx;
-      border-bottom: 1px solid #856BFF;
+      border-bottom: 1px solid #448BFF;
       background: #ffffff;
       font-size: 36rpx;
     }
@@ -240,8 +240,7 @@ page {
     .phone {
       box-sizing: border-box;
       width: 100%;
-      border: 1px solid #856BFF;
-      color: #856BFF;
+      border: 1px solid #448BFF;
       font-size: 34rpx;
       border-radius: 50rpx;
       height: 100rpx;
@@ -250,7 +249,7 @@ page {
     }
 
     .btn {
-      background: #856BFF;
+      background: #448BFF;
       color: #ffffff;
       border-radius: 40rpx;
       height: 80rpx;

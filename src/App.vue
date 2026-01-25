@@ -176,7 +176,7 @@ body{
       text {
         font-weight: 600;
         font-size: 35rpx;
-        color: #856BFF;
+        color: #448BFF;
 
         &:nth-child(2) {
           font-size: 62rpx;
@@ -240,7 +240,7 @@ body{
 
 // 公共样式
 .wd-button.is-primary {
-  background: #856BFF !important;
+  background: #448BFF !important;
   color: #ffffff !important;
 }
 

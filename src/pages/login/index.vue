@@ -59,7 +59,7 @@
     </view>
 
     <view class="login-agree" style="padding: 0 87rpx">
-      <wd-checkbox checked-color="#856BFF" size="large" v-model="radio"></wd-checkbox>
+      <wd-checkbox checked-color="#448BFF" size="large" v-model="radio"></wd-checkbox>
       <view class="login-agree_text">
         已阅读并同意
         <view style="color: #239CF7" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('《用户服务及隐私协议》')}`)">《用户服务及隐私协议》</view>
@@ -227,7 +227,7 @@ page {
 
 .login-button{
   height: 2.2rem !important;
-  background: #856BFF;
+  background: #448BFF;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -254,7 +254,7 @@ page {
     &.login-btn2 {
       button {
         background: transparent;
-        color: #856BFF;
+        color: #448BFF;
       }
     }
 
@@ -264,8 +264,8 @@ page {
 
     button {
       border-radius: 50rpx;
-      border: 4rpx solid #856BFF;
-      background: #856BFF;
+      border: 4rpx solid #448BFF;
+      background: #448BFF;
       color: #ffffff;
       font-weight: 500;
       font-size: 32rpx;
@@ -332,7 +332,7 @@ page {
     font-size: 28rpx !important;
 
     &.redemption-btn1 {
-      border: 4rpx solid #856BFF;
+      border: 4rpx solid #448BFF;
     }
   }
 }

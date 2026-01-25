@@ -1,216 +1,234 @@
 <template>
-  <view class="index-top">
-    <view class="page-title">
-      <text>首页</text>
-    </view>
-
-    <view class="banner"> </view>
-
-    <view class="index-header">
-      <image
-          class="head"
-          :src="user.avatar_url || `https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png`"
-          mode="aspectFit"
-      />
-
-      <view class="userinfo" v-if="user.uid">
-        <view class="name1">{{ user.nickname || '微信用户' }}</view>
-        <!-- TODO 到期时间 -->
-        <view class="name2">{{ user.vip_type ? `会员到期还剩159天` : '普通用户' }}</view>
+  <view class="index-page">
+    <view class="index-top">
+      <view class="page-title">
+        <text>首页</text>
       </view>
 
-      <view class="userinfo" v-else @click="toRouter('/pages/login/index')">
-        <view class="name1">未登录</view>
-        <view class="name2">游客</view>
-      </view>
+      <view class="banner"> </view>
 
-      <view class="vip" @click="myVip">
-        <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/vip-icon.png" />
-        <text>{{ user.vip_type ? '我的会员' : '加入会员' }}</text>
-      </view>
-    </view>
+      <view class="index-header">
+        <image
+            class="head"
+            :src="user.avatar_url || `https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png`"
+            mode="aspectFit"
+        />
 
-    <view class="box">
-      <view class="tool-box">
-        <view class="left">
-          <view class="top">
-            <view class="add-icon">+</view>
-
-            <view class="tip1">
-              <text>文件扫描</text>
-              <text>扫描生成电子文件</text>
-            </view>
-          </view>
-
-          <view class="bottom">
-            <view class="recode-tip">
-              <!-- TODO 切图 -->
-              <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
-              <!-- TODO 数量 -->
-              <text class="num">文件记录12</text>
-              <text class="more">更多></text>
-            </view>
-
-            <view class="recode-pic">
-              <text>WORD</text>
-              <text>PPT</text>
-              <text>PDF</text>
-            </view>
-          </view>
+        <view class="userinfo" v-if="user.uid">
+          <view class="name1">{{ user.nickname || '微信用户' }}</view>
+          <view class="name2">{{ user.vip_type ? `会员到期还剩${countDay}天` : '普通用户' }}</view>
         </view>
 
-        <view class="right">
-          <view class="right-card">
-            <!-- TODO 切图 -->
-            <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
+        <view class="userinfo" v-else @click="toRouter('/pages/login/index')">
+          <view class="name1">未登录</view>
+          <view class="name2">游客</view>
+        </view>
 
-            <view class="desc">
-              <text>证件扫描</text>
-              <text>扫描证件生成电子文件</text>
-            </view>
-          </view>
-
-          <view class="right-card">
-            <!-- TODO 切图 -->
-            <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png" />
-
-            <view class="desc">
-              <text>图片转pdf</text>
-              <text>扫描证件生成电子文件</text>
-            </view>
-          </view>
+        <view class="vip" @click="myVip">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/vip-icon.png" />
+          <text>{{ user.vip_type ? '我的会员' : '加入会员' }}</text>
         </view>
       </view>
 
-      <view class="index-card">
-        <view class="tools">
-          <view class="tools-title">常用工具</view>
+      <view class="box">
+        <view class="tool-box">
+          <view class="left">
+            <view class="top" @click="toRouter('/pages/camera/index', 'tab=6')">
+              <view class="add-icon">+</view>
 
-          <view class="card-grid">
-            <view class="card-grid-wrapper" @click="toRouter('/pages/camera/index', 'tab=5')">
-              <view class="card-grid_li">
-                <wd-img
-                    height="27"
-                    mode="heightFix"
-                    src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/icon02.png"
-                ></wd-img>
+              <view class="tip1">
+                <text>文件扫描</text>
+                <text>扫描生成电子文件</text>
               </view>
-              <view class="span"> 提取文字 </view>
             </view>
 
-            <view class="card-grid-wrapper" @click="toRouter('/pages/picTransform/picTransform')">
-              <view class="card-grid_li">
-                <wd-img
-                    height="27"
-                    mode="heightFix"
-                    src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/icon03.png"
-                ></wd-img>
+            <view class="bottom">
+              <view class="recode-tip">
+                <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon06.png" />
+                <text class="num">文件记录{{ files.length }}</text>
+                <text class="more" @click="toSwich('/pages/document/index')">更多></text>
               </view>
-              <view class="span"> 图片转换 </view>
-            </view>
 
-            <view class="card-grid-wrapper" @click="toRouter('/pages/pdfTransform/pdfTransform')">
-              <view class="card-grid_li">
-                <wd-img
-                    height="27"
-                    mode="heightFix"
-                    src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/icon04.png"
-                ></wd-img>
+              <view class="recode-pic">
+                <text>WORD</text>
+                <text>PPT</text>
+                <text>PDF</text>
               </view>
-              <view class="span"> PDF转换 </view>
-            </view>
-
-            <view class="card-grid-wrapper" @click="toSwich('/pages/tool/index')">
-              <view class="card-grid_li">
-                <wd-img
-                    height="27"
-                    mode="heightFix"
-                    src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/icon05.png"
-                ></wd-img>
-              </view>
-              <view class="span"> 更多 </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <view class="index-content" style="position: relative; z-index: 10">
-    <view class="file-list-wrapper">
-      <view class="card-top">
-        <view class="tool-title">
-          <text class="title-word">最近文档</text>
-        </view>
-
-        <view class="more" @click="toSwich('/pages/document/index')">查看更多 〉</view>
-      </view>
-
-      <view class="card-content">
-        <view
-            class="file-item"
-            :class="{ 'd-active': item.id == tindex }"
-            v-for="(item, index) in files"
-            :key="index"
-            @click="goPreview(item)"
-        >
-          <view
-              @click.stop="(tindex = (tindex === item.id ? -1 : item.id)), (currentItem = (currentItem === item ? null : item))"
-              class="doc-more"
-          >
-            <view class="more-dot" v-if="tindex === item.id"></view>
-            <view class="more-dot1" v-else></view>
-          </view>
-
-          <view class="left" :style="{ justifyContent: 'center', gap: '12rpx' }">
-            <view class="filename">
-              {{ item.file_name }}
-            </view>
-
-            <view
-                class="time"
-                v-if="item.create_at"
-            >
-              <text>更新时间：{{ item.create_at }}</text>
             </view>
           </view>
 
           <view class="right">
-            <image
-                v-if="
-                            item.file_name.includes('.') &&
-                            /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(item.file_name)
-                          "
-                mode="aspectFit"
-                :src="item.file_url"
-            />
-            <wd-icon v-if="/\.(doc|docx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="word1" size="60" color="#0072FF"></wd-icon>
-            <wd-icon v-else-if="/\.(xls|xlsx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="excel" size="60" color="#00C650"></wd-icon>
-            <wd-icon v-else-if="/\.(ppt|pptx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="ppt" size="60" color="#FF3E4C"></wd-icon>
-            <wd-icon v-else-if="/\.(pdf)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="pdf" size="60" color="#FF3E4C"></wd-icon>
-          </view>
-        </view>
+            <view class="right-card" @click="toRouter('/pages/camera/index', 'tab=4')">
+              <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon07.png" />
 
-        <view class="empty" v-if="files.length === 0 || !user.uid">
-          <view class="empty-box">
-            <image
-                class="empty-icon"
-                mode="widthFix"
-                src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/index/empty.png"
-            />
+              <view class="desc">
+                <text>证件扫描</text>
+                <text>扫描证件生成电子文件</text>
+              </view>
+            </view>
 
-            <view class="add-box">
-              <view class="tip" v-if="user.uid">暂无文档</view>
+            <view class="right-card" @click="toRouter('/pages/camera/index', 'tab=16')">
+              <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon08.png" />
 
-              <template v-else>
-                <view style="font-size: 22rpx;color: #656565; margin-bottom: 25rpx;">登录扫描账号，查看账号内同步文档</view>
-                <view class="login" @click="toRouter('/pages/login/index')">登录</view>
-              </template>
+              <view class="desc">
+                <text>图片转PDF</text>
+                <text>扫描证件生成电子文件</text>
+              </view>
             </view>
           </view>
         </view>
+
+        <view class="index-card">
+          <view class="tools">
+            <view class="tools-title">
+              <text>常用工具</text>
+              <text @click="toSwich('/pages/tool/index')">全部工具></text>
+            </view>
+
+            <view class="card-grid">
+              <view class="card-grid-wrapper" @click="toRouter('/pages/camera/index', 'tab=5')">
+                <view class="card-grid_li">
+                  <wd-img
+                      height="28"
+                      mode="heightFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon01.png"
+                  ></wd-img>
+                </view>
+                <view class="span"> 文字提取 </view>
+              </view>
+
+              <view class="card-grid-wrapper" @click="toRouter('/pages/camera/index', 'tab=9')">
+                <view class="card-grid_li">
+                  <wd-img
+                      height="28"
+                      mode="heightFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon02.png"
+                  ></wd-img>
+                </view>
+                <view class="span"> 翻译 </view>
+              </view>
+
+              <view class="card-grid-wrapper" @click="toRouter('/pages/camera/index', 'tab=7')">
+                <view class="card-grid_li">
+                  <wd-img
+                      height="28"
+                      mode="heightFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon03.png"
+                  ></wd-img>
+                </view>
+                <view class="span"> 拍照计数 </view>
+              </view>
+
+              <view class="card-grid-wrapper" @click="toRouter('/pages/remove-watermark/index', 'type=pic&channel=18&from=tool')">
+                <view class="card-grid_li">
+                  <wd-img
+                      height="28"
+                      mode="heightFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon04.png"
+                  ></wd-img>
+                </view>
+                <view class="span"> 去水印 </view>
+              </view>
+
+              <view class="card-grid-wrapper" @click="toRouter('/pages/camera/index', 'tab=13')">
+                <view class="card-grid_li">
+                  <wd-img
+                      height="28"
+                      mode="heightFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/icon05.png"
+                  ></wd-img>
+                </view>
+                <view class="span"> 拼图 </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="index-content">
+          <view class="file-list-wrapper">
+            <view class="card-top">
+              <view class="tool-title">
+                <text class="title-word">最近文档</text>
+              </view>
+
+              <view class="more" @click="toSwich('/pages/document/index')">查看更多></view>
+            </view>
+
+            <view class="card-content">
+              <view
+                  class="file-item"
+                  :class="{ 'd-active': item.id == tindex }"
+                  v-for="(item, index) in files"
+                  :key="index"
+                  @click="goPreview(item)"
+              >
+                <!--<view-->
+                <!--    @click.stop="(tindex = (tindex === item.id ? -1 : item.id)), (currentItem = (currentItem === item ? null : item))"-->
+                <!--    class="doc-more"-->
+                <!--&gt;-->
+                <!--  <view class="more-dot" v-if="tindex === item.id"></view>-->
+                <!--  <view class="more-dot1" v-else></view>-->
+                <!--</view>-->
+
+                <view class="right">
+                  <image
+                      v-if="
+                            item.file_name.includes('.') &&
+                            /\.(jpg|jpeg|png|gif|bmp|webp|svg)$/i.test(item.file_name)
+                          "
+                      mode="aspectFit"
+                      :src="item.file_url"
+                  />
+                  <wd-icon v-if="/\.(doc|docx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="word1" size="60" color="#0072FF"></wd-icon>
+                  <wd-icon v-else-if="/\.(xls|xlsx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="excel" size="60" color="#00C650"></wd-icon>
+                  <wd-icon v-else-if="/\.(ppt|pptx)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="ppt" size="60" color="#FF3E4C"></wd-icon>
+                  <wd-icon v-else-if="/\.(pdf)$/i.test(item.file_name)" class-prefix="icon" custom-class="iconfont" name="pdf" size="60" color="#FF3E4C"></wd-icon>
+                </view>
+
+                <view class="left" :style="{ justifyContent: 'center', gap: '12rpx' }">
+                  <view class="filename">
+                    <text>{{ item.file_name.split('.')[0] }}</text>
+                    <text>{{ item.file_formmat }}</text>
+                  </view>
+
+                  <view
+                      class="time"
+                      v-if="item.create_at"
+                  >
+                    <text>{{ item.create_at }}</text>
+                  </view>
+                </view>
+              </view>
+
+              <view class="empty" v-if="files.length === 0 || !user.uid">
+                <view class="empty-box">
+                  <image
+                      class="empty-icon"
+                      mode="widthFix"
+                      src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/empty.png"
+                  />
+
+                  <view class="add-box">
+                    <view class="tip" v-if="user.uid">暂无内容，快去添加吧~</view>
+
+                    <template v-else>
+                      <view style="font-size: 22rpx;color: #999999; margin-bottom: 25rpx;">登录扫描账号，查看账号内同步文档</view>
+                      <view class="login" @click="toRouter('/pages/login/index')">登录</view>
+                    </template>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="no-more-tip" v-if="files.length">没有更多内容了~</view>
       </view>
     </view>
+  </view>
+
+  <view class="add-icon1" @click="toRouter('/pages/camera/index', 'tab=4')">
+    <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/add-icon.png"/>
   </view>
 
   <view class="select-options" v-if="selectFile">
@@ -429,7 +447,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import NavBar from "@/section/a-navbar.vue";
 import { toRouter, toSwich } from "@/hooks/utils";
 import { deleteFile } from '../document/document'
@@ -506,6 +524,13 @@ watchEffect(() => {
   } else {
     selectFile.value = undefined
   }
+})
+
+let countDay = computed(() => {
+  let nowDate = Date.now()
+  let endTime = new Date(user.value.vip_end_time.replace(/-/g, '/'))
+
+  return Math.ceil((endTime - nowDate) / (1000 * 24 * 60 * 60))
 })
 
 const myVip = () => {
@@ -767,7 +792,8 @@ const initFile = () => {
     folder_id: 0,
     key: keyword.value
   }).then((res) => {
-    files.value = res.data?.slice(0, 6);
+    // files.value = res.data?.slice(0, 6);
+    files.value = res.data;
   }).catch(() => {
     files.value = []
   }).finally(() => {
@@ -861,16 +887,22 @@ const goPreview = (item) => {
 
 <style lang="scss">
 page {
-  background: linear-gradient(-90deg, #44CDD3 0%, #8FD8ED 0%, #73E0E2 0%, #5BA7F4 51%, #5191FF 100%) left top/100% 782rpx no-repeat;
+  background: #F4F6F8;
   padding-bottom: 200rpx;
 }
 </style>
 
 <style lang="scss" scoped>
-page {
+.index-page {
+  // TODO 背景图片
+  background: linear-gradient(-90deg, #44CDD3 0%, #8FD8ED 0%, #73E0E2 0%, #5BA7F4 51%, #5191FF 100%) left top/100% 782rpx no-repeat;
 }
 .index-card {
   --wot-card-margin: 0;
+  background: #FFFFFF;
+  border-radius: 30rpx;
+  padding: 30rpx 25rpx;
+  margin-bottom: 20rpx;
 }
 .logo {
   height: 200rpx;
@@ -973,6 +1005,7 @@ page {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 20rpx;
 
     .left {
       width: 335rpx;
@@ -1108,16 +1141,39 @@ page {
 
   .tools {
     .tools-title {
-      font-weight: 500;
-      font-size: 28rpx;
-      color: #1F1F1F;
-      margin-bottom: 47rpx;
+      margin-bottom: 46rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      text {
+        &:nth-child(1) {
+          font-weight: bold;
+          font-size: 30rpx;
+          color: #333333;
+        }
+
+        &:nth-child(2) {
+          font-size: 24rpx;
+          color: #999999;
+        }
+      }
     }
   }
 }
 
 .index-content {
+  background: #FFFFFF;
+  border-radius: 30rpx;
+  margin-bottom: 30rpx;
 }
+
+.no-more-tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: #999999;
+}
+
 .card-title {
   display: flex;
   padding: 10rpx 20rpx 0;
@@ -1129,26 +1185,14 @@ page {
   }
 }
 .card-grid {
-  padding: 0 33rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  > view {
-    margin-bottom: 53rpx;
-  }
 
   .card-grid_li {
     display: flex;
     justify-content: center;
     position: relative;
-
-    .hot {
-      position: absolute;
-      top: 0;
-      left: 6rpx;
-      width: 48rpx;
-    }
   }
 
   .span {
@@ -1161,7 +1205,7 @@ page {
 }
 
 .file-list-wrapper {
-  padding: 0 35rpx;
+  padding: 26rpx;
 
   .card-top {
     display: flex;
@@ -1174,15 +1218,15 @@ page {
       align-items: center;
 
       .title-word {
-        font-weight: 500;
-        font-size: 28rpx;
-        color: #1F1F1F;
+        font-weight: bold;
+        font-size: 30rpx;
+        color: #333333;
       }
     }
 
     .more {
       font-size: 24rpx;
-      color: #BBBBBB;
+      color: #999999;
     }
   }
 
@@ -1243,7 +1287,7 @@ page {
       align-items: center;
       justify-content: center;
       position: relative;
-      top: -40rpx;
+      top: 40rpx;
 
       .empty-box {
         display: flex;
@@ -1252,7 +1296,7 @@ page {
         justify-content: center;
 
         .empty-icon {
-          width: 284rpx;
+          width: 429rpx;
         }
       }
 
@@ -1261,17 +1305,18 @@ page {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
+        top: -80rpx;
 
         .tip {
-          font-weight: 500;
-          font-size: 25rpx;
-          color: #9E9E9E;
+          font-size: 22rpx;
+          color: #999999;
         }
 
         .login {
           width: 157rpx;
           height: 55rpx;
-          background: #856BFF;
+          background: #448BFF;
           border-radius: 15rpx;
           font-weight: 500;
           font-size: 21rpx;
@@ -1308,7 +1353,7 @@ page {
           height: 24rpx;
           background: #FFFFFF;
           border-radius: 50%;
-          border: 2rpx solid #856BFF;
+          border: 2rpx solid #448BFF;
         }
       }
 
@@ -1319,13 +1364,26 @@ page {
         flex-direction: column;
 
         .filename {
-          font-size: 24rpx;
-          color: #1F1F1F;
+          display: flex;
+          align-items: center;
+
+          text {
+            &:nth-child(1) {
+              font-weight: 500;
+              font-size: 25rpx;
+              color: #333333;
+            }
+
+            &:nth-child(2) {
+              font-size: 22rpx;
+              color: #999999;
+            }
+          }
         }
 
         .time {
           font-size: 24rpx;
-          color: #9C9C9E;
+          color: #999999;
           display: flex;
           align-items: center;
 
@@ -1356,6 +1414,16 @@ page {
         }
       }
     }
+  }
+}
+
+.add-icon1 {
+  position: fixed;
+  right: 20rpx;
+  bottom: 100rpx;
+
+  image {
+    width: 125rpx;
   }
 }
 
@@ -1520,7 +1588,7 @@ page {
     justify-content: space-between;
 
     .confirm {
-      background: #856BFF;
+      background: #448BFF;
       width: 284rpx;
       height: 73rpx;
       color: #ffffff;
@@ -1582,7 +1650,7 @@ page {
     }
 
     .confirm {
-      background: #856BFF;
+      background: #448BFF;
     }
   }
 }

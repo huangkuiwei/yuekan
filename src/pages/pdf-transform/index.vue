@@ -635,7 +635,7 @@ const save = () => {
 
     button {
       margin: 0;
-      background: #856BFF;
+      background: #448BFF;
       border-radius: 35rpx;
       width: 200rpx;
       height: 70rpx;

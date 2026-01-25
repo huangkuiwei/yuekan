@@ -564,17 +564,17 @@ page {
 
 .submit {
   background: #ffffff;
-  border: 2rpx solid #856BFF;
+  border: 2rpx solid #448BFF;
   border-radius: 999px;
   font-size: 28rpx;
-  color: #856BFF;
+  color: #448BFF;
   width: 180rpx;
   margin: 0;
   padding: 0;
 }
 
 .share {
-  background: #856BFF;
+  background: #448BFF;
   border-radius: 999px;
   font-size: 28rpx;
   color: #ffffff;

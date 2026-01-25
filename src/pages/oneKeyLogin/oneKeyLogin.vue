@@ -25,7 +25,7 @@
     </view>
 
     <view class="login-agree" style="padding: 0 32rpx">
-      <wd-checkbox checked-color="#856BFF" size="large" v-model="radio"></wd-checkbox>
+      <wd-checkbox checked-color="#448BFF" size="large" v-model="radio"></wd-checkbox>
       <view class="login-agree_text">
         已阅读并同意
         <view style="color: #239CF7" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('《用户服务及隐私协议》')}`)">《用户服务及隐私协议》</view>
@@ -143,7 +143,7 @@ page {
       justify-content: center;
       margin-bottom: 29rpx;
       border-radius: 50rpx;
-      background: #856BFF;
+      background: #448BFF;
       color: #ffffff;
       font-weight: 500;
       font-size: 32rpx;

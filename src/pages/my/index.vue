@@ -393,7 +393,7 @@ page {
   right: 88rpx;
   width: 134rpx;
   height: 52rpx;
-  background: #856BFF;
+  background: #448BFF;
   border-radius: 10rpx;
   font-weight: 600;
   font-size: 24rpx;

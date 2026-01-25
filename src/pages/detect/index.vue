@@ -9,7 +9,7 @@
         </view>
         <view class="detect-count">
           <view v-if="item.checked">
-            <wd-icon color="#856BFF" name="check-circle-filled" size="22px"></wd-icon>
+            <wd-icon color="#448BFF" name="check-circle-filled" size="22px"></wd-icon>
           </view>
         </view>
       </view>
@@ -23,7 +23,7 @@
         </view>
         <view class="detect-count">
           <view v-if="item.checked">
-            <wd-icon color="#856BFF" name="check-circle-filled" size="22px"></wd-icon>
+            <wd-icon color="#448BFF" name="check-circle-filled" size="22px"></wd-icon>
           </view>
         </view>
       </view>

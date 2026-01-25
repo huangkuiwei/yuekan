@@ -59,7 +59,7 @@
     {
       "path": "pages/document/index",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationStyle": "custom"
       }
     },
     {

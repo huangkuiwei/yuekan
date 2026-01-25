@@ -30,7 +30,7 @@
           <view @click="toDictionary(item)" style="flex-grow: 1">{{ item.folder_name }}</view>
 
           <view @click="toCheck(item)" class="d-flex">
-            <wd-checkbox :modelValue="item.check" checkedColor="#856BFF"></wd-checkbox>
+            <wd-checkbox :modelValue="item.check" checkedColor="#448BFF"></wd-checkbox>
           </view>
         </view>
       </view>
@@ -163,7 +163,7 @@ defineExpose({
 }
 
 .move-btn {
-  background: #856BFF;
+  background: #448BFF;
   width: 284rpx;
   height: 73rpx;
   margin: 0 auto;

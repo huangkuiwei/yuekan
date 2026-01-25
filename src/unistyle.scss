@@ -405,10 +405,12 @@ page {
   font-size: 32rpx;
   color: #FFFFFF;
   z-index: 9;
+  box-sizing: border-box;
 }
 
 .page-title .back {
   position: absolute;
   bottom: 6rpx;
   left: 15rpx;
+  box-sizing: border-box;
 }

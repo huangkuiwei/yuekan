@@ -1311,7 +1311,7 @@ export default {
 }
 
 .submit, .close, .check {
-  background: #856BFF;
+  background: #448BFF;
   border-radius: 999px;
   font-size: 28rpx;
   color: #ffffff;

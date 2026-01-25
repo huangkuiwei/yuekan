@@ -64,7 +64,7 @@
 
           <!-- 导入图片 -->
           <view @click="chooseLocalPicture" v-else>
-            <wd-badge bg-color="#856BFF" :modelValue="picList.length">
+            <wd-badge bg-color="#448BFF" :modelValue="picList.length">
               <view class="camera-pic_more">
                 <image src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon3/import-pic.png"/>
                 <text>导入图片</text>
@@ -1137,7 +1137,7 @@ page {
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    background: #856BFF;
+    background: #448BFF;
   }
 
   .pic {
