@@ -2,25 +2,25 @@
   <view class="global-m">
     <textarea placeholder="请输入您要反馈的意见或建议（5-500字以内）" v-model="content"></textarea>
     <view style="height: 0.8rem;"></view>
-    <wd-card custom-class="h-card">
-      <view>
-        <view style="margin-bottom: 0.6rem; color: #888">请提供问题的截图或图片（选填）</view>
-        <wd-upload
-            fileType="image"
-            v-model:file-list="fileList"
-            :limit="5"
-            :showLimitNum="true"
-            :sourceType="['album']"
-            name="file"
-            :header="{
-              token: token
-            }"
-            action="https://smapi.liwangtc.com/api/global/fileupload/upload"
-        >
-          <view class="upload-box">+</view>
-        </wd-upload>
-      </view>
-    </wd-card>
+    <!-- <wd-card custom-class="h-card"> -->
+    <!--   <view> -->
+    <!--     <view style="margin-bottom: 0.6rem; color: #888">请提供问题的截图或图片（选填）</view> -->
+    <!--     <wd-upload -->
+    <!--         fileType="image" -->
+    <!--         v-model:file-list="fileList" -->
+    <!--         :limit="5" -->
+    <!--         :showLimitNum="true" -->
+    <!--         :sourceType="['album']" -->
+    <!--         name="file" -->
+    <!--         :header="{ -->
+    <!--           token: token -->
+    <!--         }" -->
+    <!--         action="https://smapi.liwangtc.com/api/global/fileupload/upload" -->
+    <!--     > -->
+    <!--       <view class="upload-box">+</view> -->
+    <!--     </wd-upload> -->
+    <!--   </view> -->
+    <!-- </wd-card> -->
     <view class="font-tip">
       您的反馈我们会尽快解决，但无法保证每一条都能及时受理。如果有紧急咨询，请联系小程序客服
     </view>
@@ -46,7 +46,7 @@ const token = ref(uni.getStorageSync('toolsToken'))
 onShareAppMessage(() => {
   return {
     title: '高清电子文档一键转换',
-    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/share.png',
+    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/share.jpg',
     path: '/pages/index/index',
   }
 })
@@ -114,10 +114,10 @@ page{
 textarea {
   background: #FFFFFF;
   width: calc(100% - 40rpx);
-  height: 400rpx;
+  height: 500rpx;
   border-radius: 16rpx;
   padding: 20rpx;
-  font-size: 28rpx;
+  font-size: 22rpx;
 }
 
 .upload-box {
@@ -134,6 +134,7 @@ textarea {
 }
 
 .font-tip {
-  font-size: 22rpx;
+  font-size: 20rpx;
+  color: #999999;
 }
 </style>

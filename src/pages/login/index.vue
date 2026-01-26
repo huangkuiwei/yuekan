@@ -8,7 +8,8 @@
       <wd-img
           width="183rpx"
           height="183rpx"
-          src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/logo.png"
+          radius="13"
+          src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/logo.png"
       ></wd-img>
     </view>
 
@@ -18,14 +19,14 @@
       </view>
 
       <view style="margin-top: 30rpx; padding: 0 61rpx">
-        <wd-input :maxlength="6" v-model="vercode" :no-border="true" custom-class="login-input" size="large" placeholder="验证码">
+        <wd-input :maxlength="6" v-model="vercode" :no-border="true" custom-class="login-input" size="large" placeholder="输入验证码">
           <template #suffix>
             <view v-show="verState">
               <!--<wd-button @click="getVercode" type="warning" custom-class="login-button" size="large">-->
-              <!--  发送验证码-->
+              <!--  获取验证码-->
               <!--</wd-button>-->
               <button @click="getVercode" class="login-button">
-                发送验证码
+                获取验证码
               </button>
             </view>
             <view v-show="!verState">
@@ -53,16 +54,18 @@
 
       <view class="login-btn login-btn3" v-else>
         <button @click="toLogin(username, vercode, radio, sign)" custom-class="submit-btn" block size="large">
-          登录
+          立即登录
         </button>
       </view>
+
+      <view class="tip" v-if="loginType === 1">未注册手机号验证后自动完成注册</view>
     </view>
 
     <view class="login-agree" style="padding: 0 87rpx">
       <wd-checkbox checked-color="#448BFF" size="large" v-model="radio"></wd-checkbox>
       <view class="login-agree_text">
-        已阅读并同意
-        <view style="color: #239CF7" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('《用户服务及隐私协议》')}`)">《用户服务及隐私协议》</view>
+        我已阅读并同意
+        <view @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('《用户服务及隐私协议》')}`)">《用户协议》及《隐私政策》</view>
       </view>
     </view>
 
@@ -142,7 +145,7 @@ const getVercode = () => {
 onShareAppMessage(() => {
   return {
     title: '高清电子文档一键转换',
-    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/share.png',
+    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/share.jpg',
     path: '/pages/index/index',
   }
 })
@@ -198,12 +201,12 @@ const goHome = () => {
 <style lang="scss">
 page {
   height: 100%;
-  background: url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/login/bg.png") left top/100% 100% no-repeat;
+  background: #F6F7F9;
 }
 
 .login-input {
-  background: #F5F5F5 !important;
-  border-radius: 20rpx !important;
+  background: #EBEBEB !important;
+  border-radius: 50rpx !important;
 }
 </style>
 
@@ -227,13 +230,13 @@ page {
 
 .login-button{
   height: 2.2rem !important;
-  background: #448BFF;
-  color: #ffffff;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1.1rem;
+  // border-radius: 1.1rem;
   font-size: 28rpx;
+  color: #448BFF;
 
   &:after {
     border: none;
@@ -245,7 +248,7 @@ page {
   .login-btn{
     margin-top: 30rpx;
     font-weight: 500;
-    padding: 0 74rpx;
+    padding: 0 136rpx;
 
     &.login-btn1 {
       margin-top: 128rpx;
@@ -259,7 +262,7 @@ page {
     }
 
     &.login-btn3 {
-      margin-top: 97rpx;
+      margin-top: 20rpx;
     }
 
     button {
@@ -277,19 +280,27 @@ page {
       }
     }
   }
+
+  .tip {
+    font-size: 24rpx;
+    color: #448BFF;
+    text-align: center;
+    margin-top: 29rpx;
+  }
 }
 
 .login-agree{
-  position: fixed;
-  bottom: 100rpx;
-  left: 0;
-  right: 0;
+  // position: fixed;
+  // bottom: 100rpx;
+  // left: 0;
+  // right: 0;
+  margin-top: 74rpx;
   display: flex;
   align-items: center;
   justify-content: center;
 
   .login-agree_text{
-    color: #000000;
+    color: #999999;
     font-size: 22rpx;
     display: flex;
   }

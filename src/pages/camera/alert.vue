@@ -9,21 +9,21 @@
       />
 
       <view class="ca-tip-content">
-        <view class="tip-img">
-          <image :src="fileSrc" mode="heightFix" />
-        </view>
+        <!-- <view class="tip-img"> -->
+        <!--   <image :src="fileSrc" mode="heightFix" /> -->
+        <!-- </view> -->
 
         <view class="ca-tip-bottom">
           <view style="height: 30px; padding: 10rpx 0 !important;" class="d-flex-center">
             {{fileTipName}}
           </view>
-          <view style="font-size: 0.7rem; padding: 10rpx 0 !important;" class="d-flex-center">
+          <view style="font-size: 24rpx; color: #111111; font-weight: normal !important; padding: 10rpx 0 !important;" class="d-flex-center">
             {{ fileTip }}
           </view>
           <view class="d-flex-center alert-btn" style="padding: 20rpx 0 !important">
             <wd-button @click="close" size="large">{{fileText}}</wd-button>
           </view>
-          <view @click="onLocalSet" style="font-size: 0.8rem; padding: 0 !important" class="d-flex-center">
+          <view @click="onLocalSet" style="font-size: 22rpx; color: #448BFF; font-weight: normal !important; padding: 0 !important" class="d-flex-center">
             不再提醒
           </view>
         </view>
@@ -63,7 +63,7 @@ const close = () => {
   flex-direction: column;
 }
 .ca-tip-box{
-  width: 480rpx;
+  width: 520rpx;
   position: relative;
 
   .close {
@@ -78,7 +78,7 @@ const close = () => {
 }
 
 .ca-tip-bottom {
-  border-radius: 0 0 20rpx 20rpx;
+  border-radius: 20rpx;
   background: #ffffff;
   padding: 20rpx 46rpx 38rpx;
   display: flex;

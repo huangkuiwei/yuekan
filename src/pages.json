@@ -65,7 +65,8 @@
     {
       "path": "pages/tool/index",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "",
+        "navigationStyle": "custom",
       }
     },
     {
@@ -177,7 +178,7 @@
     {
       "path": "pages/account/index",
       "style": {
-        "navigationBarTitleText": "账号",
+        "navigationBarTitleText": "设置",
         "navigationBarBackgroundColor": "#ffffff"
       }
     },

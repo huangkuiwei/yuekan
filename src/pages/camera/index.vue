@@ -43,12 +43,12 @@
         </view>
         <view class="camera-grid_li">
           <view @click="takePicture" class="camera-btn">
-            <!--<view class="camera-box"></view>-->
-            <image
-                src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/camera/camera-icon.png"
-                style="width: 104rpx; height: 104rpx"
-                mode=""
-            />
+            <view class="camera-box"></view>
+            <!-- <image -->
+            <!--     src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/camera/camera-icon.png" -->
+            <!--     style="width: 104rpx; height: 104rpx" -->
+            <!--     mode="" -->
+            <!-- /> -->
           </view>
         </view>
         <view class="camera-grid_li">
@@ -265,7 +265,7 @@ onLoad(async (options) => {
 onShareAppMessage(() => {
   return {
     title: '高清电子文档一键转换',
-    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/share.png',
+    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/share.jpg',
     path: '/pages/index/index',
   }
 })
@@ -467,53 +467,53 @@ const onTabs = (item) => {
 
       fileTipName.value = "文字提取";
       fileSrc.value =
-        "https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon12/filetext.png";
-      fileTip.value = '提取图片上的文字，可对识别的内容进行复制、编辑。'
-      fileText.value = '开始提取'
+        "";
+      fileTip.value = '拍照识别提取你想要的文字'
+      fileText.value = '确认'
       break;
     case 6:
       fileTipName.value = "文件扫描";
       fileSrc.value =
-        "https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon12/wenjiansaomiao.png";
-      fileTip.value = '拍照即可将图片变成扫描件，支持导出PDF'
-      fileText.value = '开始扫描'
+        "";
+      fileTip.value = '拍照即可将图片变成扫描件，并生成PDF'
+      fileText.value = '确认'
       break;
     case 7:
       masterState.value = true
       cerIndex.value = 98;
       fileTipName.value = "拍照计数";
       fileSrc.value =
-        "https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon12/paizhaojishu.png";
-      fileTip.value = 'AI拍照清点物体数量，超高准确率'
-      fileText.value = '选择计数类型'
+        "";
+      fileTip.value = '自动标记图中物品的数量'
+      fileText.value = '确认'
       break;
     case 8:
       fileTipName.value = "手写文字识别";
       fileSrc.value =
-        "https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon12/shouxiewenzishibie.png";
-      fileTip.value = '拍照识别图片图片上的手写文字'
-      fileText.value = '开始识别'
+        "";
+      fileTip.value = '智能去手写，将文件还原为打印初始状态'
+      fileText.value = '确认'
       break;
     case 9:
       fileTipName.value = "拍照翻译";
       fileSrc.value =
-        "https://yonganpicture.oss-cn-shenzhen.aliyuncs.com/icons/fanyi.png";
-      fileTip.value = '拍照自动识别图片上的文字，快速翻译，支持多国语言'
-      fileText.value = '开始翻译'
+        "";
+      fileTip.value = '智能翻译，支持多国语言'
+      fileText.value = '确认'
       break;
     case 10:
       fileTipName.value = "试卷去手写";
       fileSrc.value =
-        "https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/icon12/qushouxie.png";
-      fileTip.value = '为保证处理效果，请一次拍摄一个版面的内容'
-      fileText.value = '开始去除'
+        "";
+      fileTip.value = '智能去手写，将文件还原为打印初始状态'
+      fileText.value = '确认'
       break;
     case 11:
       fileTipName.value = "识别公式";
       fileSrc.value =
-        "https://yonganpicture.oss-cn-shenzhen.aliyuncs.com/icons/shibiegongshi.png";
-      fileTip.value = 'AI拍照清点物体数量，超高准确率'
-      fileText.value = '开始识别'
+        "";
+      fileTip.value = '智能识别图中的各种公式'
+      fileText.value = '确认'
       break;
     default:
       break;
@@ -1093,7 +1093,13 @@ page {
   background: #333333;
 }
 .camera-btn {
-
+  .camera-box {
+    width: 90rpx;
+    height: 90rpx;
+    background: #FFFFFF;
+    border-radius: 50%;
+    border: 10rpx solid #F2F7FA;
+  }
 }
 .camera-pic_more{
   display: flex;

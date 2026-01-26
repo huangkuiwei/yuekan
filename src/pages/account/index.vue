@@ -1,15 +1,15 @@
 <template>
-  <view style="margin-top: 10rpx;" class="account">
+  <view style="padding: 20rpx 30rpx; " class="account">
     <wd-card
       type="rectangle"
       custom-class="h-card1"
     >
-      <wd-cell-group border>
+      <wd-cell-group border customStyle="border-radius: 20rpx">
         <wd-cell title="头像" center>
           <template #>
             <button class="chooseAvatar" open-type="chooseAvatar" @chooseavatar="chooseAvatar">
               <image
-                  mode="widthFix"
+                  mode="aspectFit"
                   :src="user.avatar_url || `https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/home/new/default-head.png`"
               />
             </button>
@@ -27,11 +27,11 @@
       </wd-cell-group>
     </wd-card>
   </view>
-  <view class="global-m account-btn" style="margin-top: 200rpx;" v-if="user.uid">
-    <button @click="loginOut" block>
-      退出登录
-    </button>
-  </view>
+  <!-- <view class="global-m account-btn" style="margin-top: 200rpx;" v-if="user.uid"> -->
+  <!--   <button @click="loginOut" block> -->
+  <!--     退出登录 -->
+  <!--   </button> -->
+  <!-- </view> -->
   <wd-message-box></wd-message-box>
 </template>
 
@@ -85,7 +85,7 @@ onShow(() => {
 onShareAppMessage(() => {
   return {
     title: '高清电子文档一键转换',
-    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/share.png',
+    imageUrl: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/share.jpg',
     path: '/pages/index/index',
   }
 })
@@ -139,23 +139,30 @@ const chooseAvatar = async (event) => {
 </script>
 <style lang="scss">
 page{
-  background: rgba(247, 248, 252, 1);
+  background: #F6F7F9;
 }
 
 .wd-cell__title {
+  font-weight: 500;
   font-size: 28rpx;
-  color: #333333;
+  color: #111111;
+}
+
+.wd-cell__body {
+  font-size: 24rpx;
+  color: #999999;
 }
 
 .h-card1 {
-  padding: 0 34rpx !important;
+  padding: 0 0 !important;
+  border-radius: 20rpx !important;
 
   .wd-card__title-content {
     display: none;
   }
 
   .wd-card__content {
-    padding: 20rpx 0 0 0 !important;
+    padding: 0 0 0 0 !important;
   }
 
   .wd-card__footer {
@@ -190,12 +197,13 @@ page{
   padding: 0;
   margin: 0;
   background: transparent;
-  height: 100rpx;
-  width: 100rpx;
+  height: 65rpx;
+  width: 65rpx;
 
   image {
-    width: 100rpx;
-    border-radius: 12rpx;
+    width: 65rpx;
+    height: 65rpx;
+    border-radius: 50%;
   }
 
   &:after {
