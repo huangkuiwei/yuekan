@@ -33,7 +33,7 @@ export default {
     //     //       isModalShowing = true;
     //     //       uni.showModal({
     //     //         title: '提示',
-    //     //         content: '您当前未登录或登录已失效，为了您有更好的体验，悦看需要您进行登录',
+    //     //         content: '您当前未登录或登录已失效，为了您有更好的体验，爱悦看需要您进行登录',
     //     //         showCancel: true,
     //     //         success: function (res) {
     //     //           if (res.confirm) {
@@ -156,78 +156,151 @@ body{
 <style lang="scss">
 .count-tip-container {
   position: relative;
-
-  image {
-    width: 100%;
-  }
-
-  .count-info {
-    position: absolute;
-    top: 280rpx;
-    left: 0;
-    right: 0;
-    text-align: center;
-
-    .count-number {
-      margin-bottom: 16rpx;
-      display: flex;
-      flex-direction: column;
-
-      text {
-        font-weight: 600;
-        font-size: 35rpx;
-        color: #448BFF;
-
-        &:nth-child(2) {
-          font-size: 62rpx;
-          margin-bottom: 20rpx;
-        }
-
-        &:nth-child(3) {
-          font-weight: 500;
-          font-size: 23rpx;
-          color: #272727;
-        }
-      }
-    }
-
-    .join {
-      margin-bottom: 30rpx;
-      color: #999999;
-      font-size: 26rpx;
-      font-weight: bold;
-    }
-
-    .exit {
-      color: #999999;
-      font-size: 26rpx;
-    }
-  }
+  padding: 36rpx 0;
 
   .close {
     text-align: right;
     position: absolute;
-    bottom: -8rpx;
-    right: 340rpx;
+    top: 20rpx;
+    right: 20rpx;
 
     image {
       width: 46rpx;
     }
   }
 
-  .btn {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 100rpx;
-    text-align: center;
+  .tip1 {
+    padding: 0 30rpx;
+    font-weight: 500;
+    font-size: 30rpx;
+    color: #62461E;
+    margin-bottom: 20rpx;
+  }
+
+  .tip2 {
+    padding: 0 30rpx;
+    font-size: 26rpx;
+    color: #97948F;
+    margin-bottom: 38rpx;
+  }
+
+  .icon-list {
+    padding: 0 30rpx;
     display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 9;
+    justify-content: space-between;
+    margin-bottom: 33rpx;
 
-    image {
-      width: 335rpx;
+    .icon-item {
+      width: 110rpx;
+      height: 110rpx;
+      background: #FFFFFF;
+      border-radius: 20rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      image {
+        width: 56rpx;
+      }
+    }
+  }
+
+  .vip-list {
+    background: #FFFFFF;
+    border-radius: 30rpx 30rpx 0rpx 0rpx;
+    padding: 30rpx;
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 26rpx;
+      color: #999999;
+      margin-bottom: 25rpx;
+    }
+
+    .list-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 20rpx;
+      margin-bottom: 26rpx;
+
+      .detail {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 32rpx;
+        background: #FFFFFF;
+        border-radius: 20rpx;
+        border: 2px solid #E8E8E8;
+
+        &.active {
+          background: linear-gradient(0deg, #FFF7EC 0%, #FBFFFF 100%);
+          border: 2px solid #DDDBCE;
+
+          .right {
+            text {
+              &:nth-child(1) {
+                color: #E25946;
+              }
+
+              &:nth-child(2) {
+                color: #E25946;
+              }
+            }
+          }
+        }
+
+        .left {
+          display: flex;
+          flex-direction: column;
+          gap: 22rpx;
+
+          text {
+            &:nth-child(1) {
+              font-weight: 500;
+              font-size: 30rpx;
+              color: #62461E;
+            }
+
+            &:nth-child(2) {
+              font-size: 24rpx;
+              color: #97948F;
+            }
+          }
+        }
+
+        .right {
+          text {
+            &:nth-child(1) {
+              font-weight: 500;
+              font-size: 30rpx;
+              color: #62461E;
+            }
+
+            &:nth-child(2) {
+              font-weight: bold;
+              font-size: 55rpx;
+              color: #62461E;
+            }
+          }
+        }
+      }
+    }
+
+    .buy {
+      width: 690rpx;
+      height: 90rpx;
+      margin: 0 auto;
+      background: linear-gradient(90deg, #FCE6C1 0%, #F6D19A 100%);
+      border-radius: 45rpx;
+      font-weight: 500;
+      font-size: 34rpx;
+      color: #6F4C14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

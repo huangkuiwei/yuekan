@@ -1,5 +1,5 @@
 {
-    "name": "悦看",
+    "name": "爱悦看",
     "appid": "",
     "description": "",
     "versionName": "1.0.0",
@@ -46,7 +46,7 @@
             "sdkConfigs": {
                 "share" : {
                     "weixin" : {
-                        "appid" : "wx5ce35be8ba5e895b",
+                        "appid" : "wx6f1727ff69a3b660",
                         "UniversalLinks" : "https://tools-api.xiaoohui.com"
                     }
                 }
@@ -57,7 +57,7 @@
     "quickapp": {},
     /* 小程序特有相关 */
     "mp-weixin": {
-        "appid": "wx5ce35be8ba5e895b",
+        "appid": "wx6f1727ff69a3b660",
         "setting": {
             "urlCheck": false,
             "request": "https://tools-api.xiaoohui.com"

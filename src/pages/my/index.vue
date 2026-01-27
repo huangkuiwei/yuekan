@@ -68,7 +68,7 @@
 
     <view class="global-m_y">
       <view class="menu-box">
-        <button class="contact-btn"  @click="openContact" style="padding: 0; border-radius: 0; margin-bottom: 15rpx; padding-bottom: 10rpx">
+        <button class="contact-btn" open-type="contact" style="padding: 0; border-radius: 0; margin-bottom: 15rpx; padding-bottom: 10rpx">
           <image class="my-cell_img" mode="widthFix" style="position: relative; top: 0" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/my/menu-icon1.png"></image>
           <text style="font-size: 30rpx; color: #111111;">联系客服</text>
           <view style="color: #ccccccaa;">
@@ -178,6 +178,7 @@ const permissionsSetting = () => {
   })
 }
 
+// TODO 客服
 const openContact = () => {
   contactMessage.confirm({
     title: '即将跳转至“微信”进入客服聊天窗口',
@@ -314,7 +315,7 @@ const toMember = () => {
   if (!user.value.uid) {
     uni.showModal({
       title: '提示',
-      content: '您当前未登录或登录已失效，为了您有更好的体验，星跃FUN需要您进行登录',
+      content: '您当前未登录或登录已失效，为了您有更好的体验，爱悦看需要您进行登录',
       showCancel: true,
       success: (res) => {
         if (res.confirm) {

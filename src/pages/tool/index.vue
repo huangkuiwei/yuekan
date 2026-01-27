@@ -1,5 +1,11 @@
 <template>
-  <view style="padding: 30rpx 34rpx">
+  <view class="page-title">
+    <text>全部工具</text>
+  </view>
+
+  <view class="banner"></view>
+
+  <view style="padding: 0 30rpx">
     <!-- <view @click="buyVip"> -->
     <!--   <image style="width: 100%" mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/zhiyingsaoshi/tool/banner.png"></image> -->
     <!-- </view> -->
@@ -8,12 +14,12 @@
       <view
           class="d-flex"
           style="
-            font-weight: 500;
+            font-weight: bold;
             font-size: 28rpx;
-            color: #1F1F1F;
+            color: #000000;
           "
       >
-        <view>扫描服务</view>
+        <view>扫描工具</view>
       </view>
 
       <view class="tool-grid tool-grid1">
@@ -21,7 +27,7 @@
           <wd-card custom-class="h-card mb-0">
             <view class="d-flex" style="">
               <image style="height: 38rpx; width: 38rpx;" :src="item.src"></image>
-              <view style="font-weight: 500;font-size: 24rpx;color: #1F1F1F; flex-grow: 1; text-align: left; ">
+              <view style="font-size: 24rpx;color: #111111; text-align: left; ">
                 {{ item.name }}
               </view>
               <image v-if="item.hot" class="hot" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/hot.png" mode="widthFix"></image>
@@ -32,9 +38,9 @@
       <view
           class="d-flex"
           style="
-            font-weight: 500;
+            font-weight: bold;
             font-size: 28rpx;
-            color: #1F1F1F;
+            color: #000000;
           "
       >
         <view>图片工具</view>
@@ -44,7 +50,7 @@
           <wd-card custom-class="h-card mb-0">
             <view class="d-flex">
               <image style="height: 38rpx; width: 38rpx;" :src="item.src"></image>
-              <view style="font-weight: 500;font-size: 24rpx;color: #1F1F1F; flex-grow: 1; text-align: right; ">
+              <view style="font-size: 24rpx;color: #111111; text-align: left; ">
                 {{ item.name }}
               </view>
               <image v-if="item.hot" class="hot" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/hot.png" mode="widthFix"></image>
@@ -56,19 +62,19 @@
       <view
           class="d-flex"
           style="
-            font-weight: 500;
+            font-weight: bold;
             font-size: 28rpx;
-            color: #1F1F1F;
+            color: #000000;
           "
       >
-        <view>PDF转换</view>
+        <view>PDF工具</view>
       </view>
       <view class="tool-grid tool-grid3">
         <view @click="goPdf(item)" class="tool-card" v-for="(item,index) in pdfs" :key="index">
           <wd-card custom-class="h-card mb-0">
             <view class="d-flex">
               <image style="height: 38rpx; width: 38rpx;" :src="item.src"></image>
-              <view style="font-weight: 500;font-size: 24rpx;color: #1F1F1F; flex-grow: 1; text-align: right; ">
+              <view style="font-size: 24rpx;color: #111111; text-align: left; ">
                 {{ item.name }}
               </view>
               <image v-if="item.hot" class="hot" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/scantool/static/assets/hot.png" mode="widthFix"></image>
@@ -90,109 +96,99 @@ import { toRouter } from '@/hooks/utils'
 const navs = ref([
   {
     name: '证件扫描',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u1.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u1.png',
     index: 4,
   },
   {
     name: '文件扫描',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u2.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u2.png',
     index: 6
   },
   {
     name: '文字提取',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u3.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u3.png',
     index: 5
   },
   {
-    name: '识别公式',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u4.png',
-    index: 11
+    name: '拍照计数',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u4.png',
+    index: 7,
   },
   {
-    name: '拍照翻译',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u5.png',
+    name: '文字翻译',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u5.png',
     index: 9
   },
   {
-    name: '试卷去手写',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u6.png',
+    name: '去手写',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u6.png',
     index: 10
   },
   {
-    name: '手写文字识别',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u7.png',
-    index: 8
-  },
-  {
-    name: '拍照计数',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/u8.png',
-    index: 7,
+    name: '公式识别',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/u7.png',
+    index: 11
   },
 ])
 
 const pictures = ref([
   {
-    name: '图片加水印',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p1.png',
-    index: 12
-  },
-  {
-    name: '图片去水印',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p2.png',
-    index: 18,
-  },
-  {
-    name: '图片转Word',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p3.png',
-    index: 14
-  },
-  {
-    name: '图片转Excel',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p4.png',
-    index: 15
-  },
-  {
-    name: '图片转PPT',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p5.png',
-    index: 17
-  },
-  {
     name: '图片转PDF',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p6.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p1.png',
     index: 16
   },
   {
+    name: '图片转表格',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p2.png',
+    index: 15
+  },
+  {
+    name: '图片转文档',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p3.png',
+    index: 14
+  },
+  {
+    name: '图片转PPT',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p4.png',
+    index: 17
+  },
+  {
+    name: '加水印',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p5.png',
+    index: 12
+  },
+  {
+    name: '去水印',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p6.png',
+    index: 18,
+  },
+  {
     name: '拼图',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/p7.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/p7.png',
     index: 13
   },
 ])
 
 const pdfs = ref([
   {
-    name: 'PDF转Word',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/d1.png',
-    url: 'type=pdf&channel=word'
-  },
-  {
-    name: 'PDF转Excel',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/d2.png',
-    url: 'type=pdf&channel=excel'
-  },
-  {
     name: 'PDF转图片',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/d3.png',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/d1.png',
     url: 'type=pdf&channel=pic',
   },
   {
-    name: 'PDF转PPT',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/d4.png',
-    url: 'type=pdf&channel=ppt'
+    name: 'PDF转文档',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/d2.png',
+    url: 'type=pdf&channel=word'
   },
   {
-    name: 'PDF转长图',
-    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tool/d5.png',
-    url: 'type=pdf&channel=longpic'
+    name: 'PDF转表格',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/d3.png',
+    url: 'type=pdf&channel=excel'
+  },
+  {
+    name: 'PDF转PPT',
+    src: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/tool/d4.png',
+    url: 'type=pdf&channel=ppt'
   },
 ])
 const goPage = (item) => {
@@ -220,15 +216,15 @@ const buyVip = () => {
 </script>
 <style lang="scss">
 page{
-  background: linear-gradient(-1deg, #FAFAFA, #F7F6FF);
+  background: #ffffff;
 }
 
 .h-card {
-  padding: 0 14rpx !important;
-  background: #ffffff !important;
-  border-radius: 20rpx !important;
-  width: 214rpx !important;
-  height: 113rpx !important;
+  padding: 0 0 !important;
+  background: #F8F8F8 !important;
+  border-radius: 17rpx !important;
+  width: 134rpx !important;
+  height: 134rpx !important;
   margin: 0 !important;
   box-sizing: border-box;
   box-shadow: none !important;
@@ -242,22 +238,34 @@ page{
 </style>
 <style scoped lang="scss">
 .index-top {
-  background: #F7F7F7 linear-gradient(228deg, #D5F1FD 0%, #D5F5C2 33%, #D6F985 100%) left top/100% 513rpx no-repeat;
-
   .index-header {
     height: 180rpx;
   }
 }
+
+.page-title {
+  color: #000000;
+}
+
+.banner {
+  padding: calc(var(--page-title-height)) 0 37rpx;
+}
+
 .tool-grid{
   display: flex;
   flex-wrap: wrap;
-  gap: 14rpx;
-  margin:36rpx 0 29rpx;
+  gap: 50rpx;
+  margin:36rpx 0 40rpx;
 
-  &.tool-grid1 {
+  &.tool-grid {
     .d-flex {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20rpx;
+
       image {
-        margin-right: 46rpx;
+        // margin-right: 46rpx;
       }
     }
   }

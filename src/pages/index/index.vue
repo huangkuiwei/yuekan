@@ -549,7 +549,7 @@ const search = () => {
   if (!user.value.uid) {
     uni.showModal({
       title: '提示',
-      content: '您当前未登录或登录已失效，为了您有更好的体验，悦看需要您进行登录',
+      content: '您当前未登录或登录已失效，为了您有更好的体验，爱悦看需要您进行登录',
       showCancel: true,
       success: (res) => {
         if (res.confirm) {
@@ -894,8 +894,7 @@ page {
 
 <style lang="scss" scoped>
 .index-page {
-  // TODO 背景图片
-  background: linear-gradient(-90deg, #44CDD3 0%, #8FD8ED 0%, #73E0E2 0%, #5BA7F4 51%, #5191FF 100%) left top/100% 782rpx no-repeat;
+  background: #F4F6F8 url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/index/bg.png") left top/100% auto no-repeat;
 }
 .index-card {
   --wot-card-margin: 0;

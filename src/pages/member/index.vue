@@ -30,7 +30,7 @@
 
               <view>
                 <text v-if="user.vip_type === 0">免费用户</text>
-                <text v-else>会员到期日期：{{ user.vip_end_time }}</text>
+                <text v-else>会员到期还剩{{ countDay }}天</text>
               </view>
             </view>
           </view>
@@ -47,7 +47,8 @@
       <view class="member-content">
         <view class="member-grid">
           <view @click="memberSelect(item)" class="member-grid_li" :class="{'active': item.select}" v-for="(item,index) in lists" :key="index">
-            <image v-if="item.recommend" mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/paper-tip-elf-app/member/hot.png" class="recommend"/>
+            <!-- <image v-if="item.recommend" mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/paper-tip-elf-app/member/hot.png" class="recommend"/> -->
+            <view class="recommend" v-if="item.recommend">推荐</view>
 
             <view style="padding: 0 0 10rpx 0; font-size: 28rpx; color: #111111;">{{item.name}}</view>
             <view class="member-price">
@@ -63,28 +64,6 @@
         </view>
 
         <view class="shop-detail">
-          <view class="submit" v-if="platform !== 'ios'" @click="onPay(price, openid, agree, user)">
-            {{ user.vip_type === 0 ? '立即开通' : '立即续费' }}
-          </view>
-
-          <view v-else>
-            <view class="buy-tip">由于相关规定，iOS版小程序暂不支持购买</view>
-            <button class="submit" @click="openContact">联系客服</button>
-          </view>
-
-          <view class="agree">
-            <checkbox-group :value="agree" @change="agree = $event.detail.value">
-              <label style="display: flex; align-items: center">
-                <checkbox style="transform: scale(0.55)" value="1"></checkbox>
-                <text>我已阅读并同意</text>
-              </label>
-            </checkbox-group>
-
-            <text style="color: #ED0000; margin-left: 3px;" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('会员协议')}`)">《会员服务协议》</text>
-            <!--及-->
-            <!--<text style="color: #ED0000; margin-left: 3px;" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('会员协议')}`)">自动续费规则</text>-->
-          </view>
-
           <view class="quanyi">
             <view class="title">VIP尊享 18项权益</view>
 
@@ -101,6 +80,30 @@
                 <text v-for="item of rules.map(x => x[2])">{{ item }}</text>
               </view>
             </view>
+          </view>
+        </view>
+
+        <view class="buy">
+          <view class="submit" v-if="platform !== 'ios'" @click="onPay(price, openid, agree, user)">
+            {{ user.vip_type === 0 ? '开通会员' : '续费会员' }}
+          </view>
+
+          <view v-else>
+            <view class="buy-tip">由于相关规定，iOS版小程序暂不支持购买</view>
+            <button class="submit" open-type="contact">联系客服</button>
+          </view>
+
+          <view class="agree" v-if="platform !== 'ios'">
+            <checkbox-group :value="agree" @change="agree = $event.detail.value">
+              <label style="display: flex; align-items: center">
+                <checkbox style="transform: scale(0.55)" value="1"></checkbox>
+                <text>我已阅读并同意</text>
+              </label>
+            </checkbox-group>
+
+            <text style="color: #E25946; margin-left: 3px;" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('会员协议')}`)">《会员服务协议》</text>
+            <!--及-->
+            <!--<text style="color: #ED0000; margin-left: 3px;" @click="toRouter(`/pages/vipProtocol/index`, `title=${encodeURIComponent('会员协议')}`)">自动续费规则</text>-->
           </view>
         </view>
       </view>
@@ -193,7 +196,14 @@ onShareAppMessage(() => {
   }
 })
 
+let countDay = computed(() => {
+  let nowDate = Date.now()
+  let endTime = new Date(user.value.vip_end_time.replace(/-/g, '/'))
 
+  return Math.ceil((endTime - nowDate) / (1000 * 24 * 60 * 60))
+})
+
+// TODO 客服
 const openContact = () => {
   uni.openCustomerServiceChat({
     corpId: 'ww256d3515b9dce4dd',
@@ -216,8 +226,8 @@ const toBack = () => {
 
 const getProductList = async () => {
   $http.get('api/global/product/get').then(res => {
-    // 星跃FUN日会员暂时不做显示
-    let index = res.data.findIndex(item => item.product_name === '星跃日会员')
+    // 日会员暂时不做显示
+    let index = res.data.findIndex(item => item.product_name.includes('日会员'))
 
     res.data.forEach(item => {
       item.recommend = item.id === 10000;
@@ -230,7 +240,7 @@ const getProductList = async () => {
     // 连续包月
     res.data.splice(1, 0, {
       price: 2990,
-      product_name: '星跃连续包月',
+      product_name: '爱悦看连续包月',
       id: 10009,
       recommend: false
     })
@@ -326,23 +336,23 @@ page{
   --wot-button-large-height: 3rem;
   --wot-button-large-fs: 1.4rem;
   background: #ffffff;
-  height: 100%;
+  padding-bottom: 240rpx;
 }
 
 .member-page {
-  background: #FEF7EC url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/paper-tip-elf-app/member/bg.png") left top/100% 950rpx no-repeat;
-  height: 100%;
+  background: url("https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/banner.png") left top/100% 380rpx no-repeat;
 }
 
 .page-title {
+  color: #111111;
 }
 
 .banner {
-  padding: calc(var(--page-title-height)) 0 79rpx;
+  padding: calc(var(--page-title-height)) 0 48rpx;
 }
 
 .member-top{
-  margin-bottom: 56rpx;
+  margin-bottom: 50rpx;
 }
 
 .padding-x_medium {
@@ -367,10 +377,9 @@ page{
 
 .member-content-wrap{
   background: #FFFFFF;
-  border-radius: 40rpx 40rpx 0rpx 0rpx;
 
   .member-content {
-    padding: 75rpx 42rpx;
+    padding: 60rpx 40rpx;
   }
 }
 .member-grid{
@@ -386,34 +395,35 @@ page{
   }
 
   .forever{
-    font-size: 22rpx;
-    color: #999999;
-    background: #E6E6E6;
-    border-radius: 5rpx;
-    width: 170rpx;
-    height: 35rpx;
+    width: 100%;
+    height: 50rpx;
+    background: #F5F5F5;
+    border-radius: 0 0 20rpx 20rpx;
+    font-size: 24rpx;
+    color: #97948F;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .active{
-    background: #FFFAF0;
-    border: 4rpx solid #F2C48D;
+    background: linear-gradient(0deg, #FFF7EC 0%, #FBFFFF 100%);
+    border: 2rpx solid #DDDBCE;
 
     .forever{
-      color: #A15506;
-      background: #FCE3C9;
+      background: linear-gradient(90deg, #FCE6C1 0%, #F6D19A 100%);
+      font-size: 24rpx;
+      color: #6F4C14;
     }
   }
 }
 
 .member-grid_li{
-  background: #F3F5F7;
+  background: #FFFFFF;
+  border: 2rpx solid #BFBFBF;
   border-radius: 20rpx;
-  border: 4rpx solid transparent;
   text-align: center;
-  padding: 30rpx 0 14rpx;
+  padding: 30rpx 0 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -422,9 +432,18 @@ page{
 
   .recommend {
     position: absolute;
-    top: -20rpx;
-    left: -3px;
+    top: -16rpx;
+    left: -1px;
     width: 70rpx;
+    height: 35rpx;
+    background: linear-gradient(90deg, #73C1FF 0%, #2D85FE 100%);
+    border-radius: 18rpx 18rpx 18rpx 0rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 24rpx;
+    color: #FFFFFF;
   }
 }
 .member-price{
@@ -453,29 +472,6 @@ page{
 
   image {
     width: 100%;
-  }
-
-  .submit {
-    width: 100%;
-    height: 100rpx;
-    background: #2A1601;
-    border-radius: 50rpx;
-    font-weight: 500;
-    font-size: 32rpx;
-    color: #F3C995;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30rpx;
-  }
-
-  .agree {
-    font-size: 20rpx;
-    color: #999999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 48rpx;
   }
 
   .quanyi {
@@ -524,6 +520,14 @@ page{
           }
         }
 
+        &:nth-child(3) {
+          text {
+            &:nth-child(1) {
+              border-radius: 0 20rpx 0 0;
+            }
+          }
+        }
+
         text {
           display: flex;
           align-items: center;
@@ -541,12 +545,48 @@ page{
           &:nth-child(1) {
             font-weight: 500;
             font-size: 28rpx;
-            color: #A15506;
-            background: #FFE8C0;
+            color: #87755F;
+            background: linear-gradient(90deg, #FFF5DF 0%, #FFE8C0 100%);
           }
         }
       }
     }
+  }
+}
+
+.buy {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220rpx;
+  background: #ffffff;
+  box-shadow: 0 -4px 4px #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .submit {
+    width: 650rpx;
+    height: 100rpx;
+    background: linear-gradient(90deg, #FCE6C1 0%, #F6D19A 100%);
+    border-radius: 50rpx;
+    font-weight: 500;
+    font-size: 34rpx;
+    color: #6F4C14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30rpx;
+  }
+
+  .agree {
+    font-size: 20rpx;
+    color: #999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -683,7 +723,7 @@ page{
 .buy-tip {
   text-align: center;
   font-size: 24rpx;
-  margin-bottom: 15rpx;
+  margin-bottom: 10rpx;
 }
 
 .contact-btn-m {

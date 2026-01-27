@@ -156,34 +156,68 @@
   <wd-popup
       :closable="false"
       :modelValue="countTipDialog"
-      custom-style="width: 700rpx; background: transparent; top: calc(50vh - 500rpx); margin: 0 auto;"
-      position="top"
+      custom-style="width: 750rpx; background: #F7F7F7; border-radius: 30rpx 30rpx 0rpx 0rpx;"
+      position="bottom"
       :z-index="99999"
   >
     <view class="count-tip-container">
       <view class="close">
-        <image @click="countTipDialog = false" mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/icon/close.png" />
-      </view>
-      <image src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/icon/vip-dialog-bg2.png" mode="widthFix" />
-      <view class="btn" @click="toRouter('/pages/member/index')">
-        <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/icon/buy-btn.png" />
+        <image @click="countTipDialog = false" mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/close2.png" />
       </view>
 
-      <view class="count-info">
-        <view class="count-number">
-          <text>您的免费体验次数</text>
-          <text>{{ count > 0 ? `仅剩${count}次` : '已用完' }}</text>
-          <text>加入会员享受全部权益</text>
+      <view class="tip1">免费次数已用尽，成为会员享受完整权益</view>
+      <view class="tip2">开通会员解锁全部特权</view>
+      <view class="icon-list">
+        <view class="icon-item">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/icon01.png"/>
         </view>
 
+        <view class="icon-item">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/icon02.png"/>
+        </view>
+
+        <view class="icon-item">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/icon03.png"/>
+        </view>
+
+        <view class="icon-item">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/icon04.png"/>
+        </view>
+
+        <view class="icon-item">
+          <image mode="widthFix" src="https://hnenjoy.oss-cn-shanghai.aliyuncs.com/yuekan/vip/icon05.png"/>
+        </view>
+      </view>
+      <view class="vip-list">
+        <view class="title">
+          <text>会员套餐</text>
+          <text @click="toRouter('/pages/member/index')">更多详情</text>
+        </view>
+
+        <view class="list-detail">
+          <view class="detail" @click="memberSelect(item)" :class="{ active: price.id === item.id }" v-for="item of lists" :key="item.id">
+            <view class="left">
+              <text>{{ item.product_name }}</text>
+              <text>{{ item.tip }}</text>
+            </view>
+
+            <view class="right">
+              <text>￥</text>
+              <text>{{ item.forever }}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="buy" @click="onPay(price, openid, ['1'], user)">￥{{ price.forever }}立即开通</view>
       </view>
     </view>
   </wd-popup>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, onMounted, nextTick, watch, computed } from 'vue'
 import { toRouter } from "@/hooks/utils";
+import { onPay } from '../member/member';
 import { onLoad, onShareAppMessage, onShow } from '@dcloudio/uni-app'
 import {
   fileTypes,
@@ -248,6 +282,79 @@ const tabs = ref([
   { name: "", index: -1 },
 ]);
 const showNextTip = ref(false)
+const lists = ref([])
+const user = ref({})
+const openid = ref(null)
+
+const getProductList = () => {
+  $http.get('api/global/product/get').then(res => {
+    // 日会员暂时不做显示
+    let index = res.data.findIndex(item => item.product_name.includes('日会员'))
+
+    res.data.forEach(item => {
+      item.recommend = item.id === 10000;
+    })
+
+    if (index !== -1) {
+      res.data.splice(index, 1)
+    }
+
+    // 连续包月
+    res.data.splice(1, 0, {
+      price: 1990,
+      product_name: '爱悦看连续包月',
+      id: 10009,
+      recommend: false
+    })
+
+    res.data.forEach((item, index) => {
+      item.forever = Number((item.price / 100).toFixed(2))
+
+      if (item.id === 10009) {
+        item.tip = '次月自动续费  可随时取消'
+      } else if (item.id === 10000) {
+        item.tip = '每日低至0.93元'
+      } else if (item.id === 10001) {
+        item.tip = '限时特惠，先到先得'
+      }
+
+      let unit = ''
+
+      if (item.product_name.includes('月')){
+        unit = '/月'
+        item.price = (item.forever / 30).toFixed(2)
+      } else if (item.product_name.includes('年')){
+        unit = '/年'
+        item.price = (item.forever / 366).toFixed(2)
+      } else if (item.product_name.includes('季度')){
+        unit = '/季度'
+        item.price = (item.forever / 90).toFixed(2)
+      } else if (item.product_name.includes('终身')){
+        unit = '/终身'
+      }
+
+      item.name = item.product_name
+      item.proto = item.forever
+      item.unit = unit
+      item.select = (index === 0)
+    })
+
+    lists.value = res.data
+  })
+}
+
+const price = computed(() => {
+  return lists.value.find(item => item.select)
+})
+
+const memberSelect = (item) => {
+  lists.value.forEach(item => {
+    item.select = false
+  })
+  price.value = item
+  console.log(item);
+  item.select = !item.select;
+}
 
 onLoad(async (options) => {
   if( options.tab ){
@@ -257,9 +364,48 @@ onLoad(async (options) => {
 
   await getCount()
 
-  if (count.value < 3) {
+  if (count.value <= 0) {
     countTipDialog.value = true
   }
+
+  $http.get('api/user/auth/userauth/info?referch=1').then(res => {
+    let vip_info = res.data.vip_info
+
+    if (vip_info.vip_end_time) {
+      vip_info.vip_end_time = `${vip_info.vip_end_time.slice(0, 4)}年${vip_info.vip_end_time.slice(5, 7)}月${vip_info.vip_end_time.slice(8, 10)}日`
+    }
+
+    user.value = {
+      ...res.data,
+      ...vip_info,
+    };
+  }).catch(() => {
+    user.value = {}
+  })
+
+  // const username = uni.getStorageSync('username')
+  // uni.request({
+  //   url: '/api/user/username?username=' + username,
+  //   method: 'GET',
+  //   success: (res) => {
+  //     user.value = res.data
+  //   },
+  //   fail: (res) => {}
+  // })
+  uni.login({
+    success: (res) => {
+      console.log('res.code', res.code)
+
+      $http.post('api/user/auth/userauth/get_openid', {
+        code: res.code,
+        micro_appid: uni.getAccountInfoSync().miniProgram.appId
+      }).then((res) => {
+        openid.value = res.data
+      })
+    }
+  })
+
+  getProductList()
 })
 
 onShareAppMessage(() => {
@@ -274,7 +420,7 @@ onShareAppMessage(() => {
 onShow(async () => {
   await getCount()
 
-  if (count.value < 3 && !picList.value.length) {
+  if (count.value <= 0 && !picList.value.length) {
     countTipDialog.value = true
   }
 })
@@ -410,7 +556,7 @@ const getCount = async () => {
 watch(tab, async () => {
   await getCount()
 
-  if (count.value < 3) {
+  if (count.value <= 0) {
     countTipDialog.value = true
   }
 })

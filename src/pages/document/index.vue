@@ -705,7 +705,7 @@ const addDic = () => {
   if (!user.value.uid) {
     uni.showModal({
       title: '提示',
-      content: '您当前未登录或登录已失效，为了您有更好的体验，星跃FUN需要您进行登录',
+      content: '您当前未登录或登录已失效，为了您有更好的体验，爱悦看需要您进行登录',
       showCancel: true,
       success: (res) => {
         if (res.confirm) {
