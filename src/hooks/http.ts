@@ -1,6 +1,6 @@
 import { toRouter } from './utils'
 
-let baseApi = 'https://smapi.liwangtc.com/'
+let baseApi = 'https://smapi.yuelook.com/'
 let hasShowLoginModal = false
 
 const $http = {

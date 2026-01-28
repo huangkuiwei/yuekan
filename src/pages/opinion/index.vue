@@ -15,7 +15,7 @@
     <!--         :header="{ -->
     <!--           token: token -->
     <!--         }" -->
-    <!--         action="https://smapi.liwangtc.com/api/global/fileupload/upload" -->
+    <!--         action="https://smapi.yuelook.com/api/global/fileupload/upload" -->
     <!--     > -->
     <!--       <view class="upload-box">+</view> -->
     <!--     </wd-upload> -->

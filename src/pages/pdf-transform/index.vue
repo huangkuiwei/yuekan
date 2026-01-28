@@ -208,8 +208,8 @@ const getProductList = () => {
       } else if (item.product_name.includes('年')){
         unit = '/年'
         item.price = (item.forever / 366).toFixed(2)
-      } else if (item.product_name.includes('季度')){
-        unit = '/季度'
+      } else if (item.product_name.includes('季')){
+        unit = '/季'
         item.price = (item.forever / 90).toFixed(2)
       } else if (item.product_name.includes('终身')){
         unit = '/终身'

@@ -300,12 +300,12 @@ const getProductList = () => {
     }
 
     // 连续包月
-    res.data.splice(1, 0, {
-      price: 1990,
-      product_name: '爱悦看连续包月',
-      id: 10009,
-      recommend: false
-    })
+    // res.data.splice(1, 0, {
+    //   price: 1990,
+    //   product_name: '爱悦看连续包月',
+    //   id: 10009,
+    //   recommend: false
+    // })
 
     res.data.forEach((item, index) => {
       item.forever = Number((item.price / 100).toFixed(2))
@@ -326,8 +326,8 @@ const getProductList = () => {
       } else if (item.product_name.includes('年')){
         unit = '/年'
         item.price = (item.forever / 366).toFixed(2)
-      } else if (item.product_name.includes('季度')){
-        unit = '/季度'
+      } else if (item.product_name.includes('季')){
+        unit = '/季'
         item.price = (item.forever / 90).toFixed(2)
       } else if (item.product_name.includes('终身')){
         unit = '/终身'
