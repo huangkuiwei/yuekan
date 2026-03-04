@@ -4,9 +4,9 @@
       <wd-grid-item :custom-class="item.hidden?'extra':''" v-for="(item,index) in menus" :key="index" icon="goods" :use-slot="true">
         <view @click="toSwich(item.page)" v-show="!item.hidden">
           <view>
-            <image class="icon" style="height: 32rpx" mode="heightFix" :src="item.index == props.index?item.select_icon:item.icon"/>
+            <image class="icon" style="height: 32rpx; width: auto" mode="heightFix" :src="item.index == props.index?item.select_icon:item.icon"/>
           </view>
-          <view style="font-size: 0.8rem;" :class="{'active': item.index == props.index}">
+          <view style="font-size: 24rpx;" :class="{'active': item.index == props.index}">
             {{ item.name }}
           </view>
         </view>
@@ -31,15 +31,15 @@ const menus = ref([
     page: '/pages/index/index',
     name: '首页',
     index: 1,
-    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_1.png?t=123',
-    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_1_sel.png?t=123'
+    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_1.png?t=1234',
+    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_1_sel.png?t=1234'
   },
   {
     page: '/pages/document/index',
     name: '文档',
     index: 2,
-    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_2.png?t=123',
-    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_2_sel.png?t=123'
+    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_2.png?t=1234',
+    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_2_sel.png?t=1234'
   },
   // {
   //   hidden: true
@@ -48,15 +48,15 @@ const menus = ref([
     page: '/pages/tool/index',
     name: '工具',
     index: 3,
-    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_3.png?t=123',
-    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_3_sel.png?t=123'
+    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_3.png?t=1234',
+    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_3_sel.png?t=1234'
   },
   {
     page: '/pages/my/index',
     name: '我的',
     index: 4,
-    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_4.png?t=123',
-    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_4_sel.png?t=123'
+    icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_4.png?t=1234',
+    select_icon: 'https://hnenjoy.oss-cn-shanghai.aliyuncs.com/new_scantools/tabbar/icon_4_sel.png?t=1234'
   }
 ])
 

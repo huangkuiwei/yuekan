@@ -534,7 +534,7 @@ let countDay = computed(() => {
 })
 
 const myVip = () => {
-  if (user.uid) {
+  if (user.value.uid) {
     if (user.value.vip_type) {
       toRouter('/pages/my/index')
     } else {
@@ -1419,7 +1419,7 @@ page {
 .add-icon1 {
   position: fixed;
   right: 20rpx;
-  bottom: 100rpx;
+  bottom: 140rpx;
 
   image {
     width: 125rpx;
